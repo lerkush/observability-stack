@@ -1,0 +1,25 @@
+{{ define "telegram.message" -}}
+{{ if eq .Status "firing" }}🔴 <b>FIRING</b>{{ else }}✅ <b>RESOLVED</b>{{ end }}
+{{ range .Alerts -}}
+<b>{{ .Labels.alertname }}</b> · {{ .Labels.severity }}
+{{ .Annotations.summary }}
+Değer: {{ .Annotations.value }}
+{{ if .Annotations.runbook_url }}📖 {{ .Annotations.runbook_url }}{{ end }}
+{{ end -}}
+{{ end }}
+
+{{ define "email.subject" -}}
+{{ if eq .Status "firing" }}🔴 FIRING{{ else }}✅ RESOLVED{{ end }}: {{ range .Alerts }}{{ .Labels.alertname }} {{ end }}
+{{- end }}
+
+{{ define "email.html" -}}
+<h2>{{ if eq .Status "firing" }}🔴 FIRING{{ else }}✅ RESOLVED{{ end }}</h2>
+{{ range .Alerts }}
+<p>
+<b>{{ .Labels.alertname }}</b> &middot; {{ .Labels.severity }}<br>
+{{ .Annotations.summary }}<br>
+Değer: {{ .Annotations.value }}<br>
+{{ if .Annotations.runbook_url }}<a href="{{ .Annotations.runbook_url }}">📖 Runbook</a>{{ end }}
+</p>
+{{ end }}
+{{- end }}

@@ -1,0 +1,4 @@
+.env
+alertmanager/bot_token
+alertmanager/smtp_password
+alertmanager/alertmanager.yml.real

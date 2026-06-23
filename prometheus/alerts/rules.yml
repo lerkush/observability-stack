@@ -1,0 +1,42 @@
+groups:
+  - name: host-alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.instance }} erisilemiyor"
+          value: "1 dakikadir yanit yok"
+          runbook_url: "https://github.com/KULLANICI_ADIN/observability-stack/blob/main/docs/runbook.md#instance-down"
+
+      - alert: HighCpuUsage
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.instance }} CPU yuksek"
+          value: "{{ printf \"%.0f\" $value }}% (5 dk)"
+          runbook_url: "https://github.com/KULLANICI_ADIN/observability-stack/blob/main/docs/runbook.md#cpu-high"
+
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.instance }} RAM yuksek"
+          value: "{{ printf \"%.0f\" $value }}%"
+          runbook_url: "https://github.com/KULLANICI_ADIN/observability-stack/blob/main/docs/runbook.md#memory-high"
+
+      - alert: DiskSpaceLow
+        expr: (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"})) * 100 > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.instance }} disk doluyor"
+          value: "{{ printf \"%.0f\" $value }}% ({{ $labels.mountpoint }})"
+          runbook_url: "https://github.com/KULLANICI_ADIN/observability-stack/blob/main/docs/runbook.md#disk-low"
