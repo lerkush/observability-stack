@@ -1,0 +1,22 @@
+groups:
+  - name: vertex-alerts
+    rules:
+      - alert: NotificationServiceHighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job="notification-service"}[2m])) by (le)) > 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "notification-service yanıt süresi yüksek"
+          value: "p95 gecikme 1 saniyeyi geçti (son 2 dk)"
+          runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#notification-latency"
+
+      - alert: CheckoutServiceErrorRateHigh
+        expr: sum(rate(http_requests_total{job="checkout-service", status=~"5.."}[5m])) / sum(rate(http_requests_total{job="checkout-service"}[5m])) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "checkout-service hata oranı yüksek"
+          value: "5xx hata oranı %10'u geçti (son 5 dk)"
+          runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#checkout-errors"

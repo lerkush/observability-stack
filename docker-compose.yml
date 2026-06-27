@@ -64,5 +64,44 @@ services:
       - /dev/disk/:/dev/disk:ro
     restart: unless-stopped
 
+  gateway-service:
+    build: ./vertex/gateway-service
+    container_name: gateway-service
+    environment:
+      - CHECKOUT_URL=http://checkout-service:8000
+    ports:
+      - "127.0.0.1:8010:8000"
+    restart: unless-stopped
+    depends_on:
+      - checkout-service
+
+  checkout-service:
+    build: ./vertex/checkout-service
+    container_name: checkout-service
+    environment:
+      - INVENTORY_URL=http://inventory-service:8000
+      - NOTIFICATION_URL=http://notification-service:8000
+      - DOWNSTREAM_TIMEOUT=5.0
+    ports:
+      - "127.0.0.1:8011:8000"
+    restart: unless-stopped
+    depends_on:
+      - inventory-service
+      - notification-service
+
+  inventory-service:
+    build: ./vertex/inventory-service
+    container_name: inventory-service
+    ports:
+      - "127.0.0.1:8012:8000"
+    restart: unless-stopped
+
+  notification-service:
+    build: ./vertex/notification-service
+    container_name: notification-service
+    ports:
+      - "127.0.0.1:8013:8000"
+    restart: unless-stopped
+
 volumes:
   grafana-data:
