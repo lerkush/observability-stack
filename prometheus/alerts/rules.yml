@@ -7,8 +7,8 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "{{ $labels.instance }} erisilemiyor"
-          value: "1 dakikadir yanit yok"
+          summary: "{{ $labels.instance }} is unreachable"
+          value: "No response for 1 minute"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#instance-down"
 
       - alert: HighCpuUsage
@@ -17,8 +17,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "{{ $labels.instance }} CPU yuksek"
-          value: "{{ printf \"%.0f\" $value }}% (5 dk)"
+          summary: "{{ $labels.instance }} CPU usage high"
+          value: "{{ printf \"%.0f\" $value }}% (5 min)"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#cpu-high"
 
       - alert: HighMemoryUsage
@@ -27,7 +27,7 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "{{ $labels.instance }} RAM yuksek"
+          summary: "{{ $labels.instance }} RAM usage high"
           value: "{{ printf \"%.0f\" $value }}%"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#memory-high"
 
@@ -37,6 +37,6 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "{{ $labels.instance }} disk doluyor"
+          summary: "{{ $labels.instance }} disk filling up"
           value: "{{ printf \"%.0f\" $value }}% ({{ $labels.mountpoint }})"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#disk-low"

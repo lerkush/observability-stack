@@ -7,8 +7,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "notification-service yanıt süresi yüksek"
-          value: "Ortalama gecikme 1 saniyeyi geçti (son 2 dk)"
+          summary: "notification-service response time high"
+          value: "Average latency exceeded 1 second (last 2 min)"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#notification-latency"
 
       - alert: CheckoutServiceErrorRateHigh
@@ -17,6 +17,6 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "checkout-service hata oranı yüksek"
-          value: "5xx hata oranı %10'u geçti (son 5 dk)"
+          summary: "checkout-service error rate high"
+          value: "5xx error rate exceeded 10% (last 5 min)"
           runbook_url: "https://github.com/lerkush/observability-stack/blob/main/docs/runbook.md#checkout-errors"

@@ -38,7 +38,7 @@
         },
         "overrides": []
       },
-      "title": "Gateway — İstek Oranı (req/s)",
+      "title": "Gateway — Request Rate (req/s)",
       "type": "stat",
       "targets": [
         {
@@ -77,7 +77,7 @@
         },
         "overrides": []
       },
-      "title": "Checkout — Hata Oranı (%)",
+      "title": "Checkout — Error Rate (%)",
       "type": "gauge",
       "targets": [
         {
@@ -115,7 +115,7 @@
         },
         "overrides": []
       },
-      "title": "Notification — Ortalama Gecikme",
+      "title": "Notification — Average Latency",
       "type": "gauge",
       "targets": [
         {
@@ -153,7 +153,7 @@
         },
         "overrides": []
       },
-      "title": "Servisler Ayakta (4/4)",
+      "title": "Services Up (4/4)",
       "type": "stat",
       "targets": [
         {
@@ -178,7 +178,7 @@
         "legend": { "displayMode": "list", "placement": "bottom" },
         "tooltip": { "mode": "multi" }
       },
-      "title": "Servis Bazında İstek Oranı (req/s)",
+      "title": "Request Rate by Service (req/s)",
       "type": "timeseries",
       "targets": [
         {
@@ -204,7 +204,7 @@
         "legend": { "displayMode": "list", "placement": "bottom" },
         "tooltip": { "mode": "multi" }
       },
-      "title": "Servis Bazında Ortalama Gecikme",
+      "title": "Average Latency by Service",
       "type": "timeseries",
       "targets": [
         {
@@ -243,7 +243,7 @@
         "legend": { "displayMode": "list", "placement": "bottom" },
         "tooltip": { "mode": "multi" }
       },
-      "title": "Checkout — Durum Koduna Göre İstekler",
+      "title": "Checkout — Requests by Status Code",
       "type": "timeseries",
       "targets": [
         {
@@ -269,13 +269,13 @@
         "legend": { "displayMode": "list", "placement": "bottom" },
         "tooltip": { "mode": "multi" }
       },
-      "title": "Notification — Gecikme (Demo Sırasında İzle)",
+      "title": "Notification — Latency (Watch During Demo)",
       "type": "timeseries",
       "targets": [
         {
           "datasource": { "type": "prometheus", "uid": "prometheus" },
           "expr": "rate(http_request_duration_seconds_sum{job=\"notification-service\", handler=\"/notify\"}[1m]) / clamp_min(rate(http_request_duration_seconds_count{job=\"notification-service\", handler=\"/notify\"}[1m]), 1e-9)",
-          "legendFormat": "ortalama gecikme",
+          "legendFormat": "avg latency",
           "refId": "A"
         }
       ]
@@ -290,6 +290,6 @@
   "timezone": "browser",
   "title": "Vertex — Application Overview",
   "uid": "vertex-app-overview",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

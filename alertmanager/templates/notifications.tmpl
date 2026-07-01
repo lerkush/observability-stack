@@ -3,7 +3,7 @@
 {{ range .Alerts -}}
 <b>{{ .Labels.alertname }}</b> · {{ .Labels.severity }}
 {{ .Annotations.summary }}
-Değer: {{ .Annotations.value }}
+Value: {{ .Annotations.value }}
 {{ if .Annotations.runbook_url }}📖 {{ .Annotations.runbook_url }}{{ end }}
 {{ end -}}
 {{ end }}
@@ -18,7 +18,7 @@ Değer: {{ .Annotations.value }}
 <p>
 <b>{{ .Labels.alertname }}</b> &middot; {{ .Labels.severity }}<br>
 {{ .Annotations.summary }}<br>
-Değer: {{ .Annotations.value }}<br>
+Value: {{ .Annotations.value }}<br>
 {{ if .Annotations.runbook_url }}<a href="{{ .Annotations.runbook_url }}">📖 Runbook</a>{{ end }}
 </p>
 {{ end }}

@@ -3,7 +3,7 @@
     {
       "name": "DS_PROMETHEUS",
       "label": "Prometheus",
-      "description": "版本 2.15",
+      "description": "Version 2.15",
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
@@ -227,7 +227,7 @@
           "hide": true,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "nur container",
+          "legendFormat": "containers only",
           "refId": "F",
           "step": 10
         },
@@ -236,7 +236,7 @@
           "hide": true,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "nur docker host",
+          "legendFormat": "docker host only",
           "metric": "",
           "refId": "A",
           "step": 20
@@ -1260,5 +1260,5 @@
   "timezone": "browser",
   "title": "Docker Container",
   "uid": "4dMaCsRZz",
-  "version": 37
+  "version": 38
 }
